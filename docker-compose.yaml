@@ -1,0 +1,23 @@
+version: '3.8'
+services:
+
+  flask:
+    build: 
+      context: .
+      dockerfile: ./app/dockerfile
+    volumes:
+      - ./app:/code
+    ports:
+      - 8000:8000
+
+  postgresql:
+    build: 
+      context: .
+      dockerfile: ./dockerfiles/postgres.dockerfile
+    restart: always
+    env_file:
+      - ./env/postgres.env
+    volumes:
+      - ./dbdata:/var/lib/postgresql/data/
+    ports:
+      - 5432:5432
